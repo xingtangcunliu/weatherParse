@@ -51,62 +51,85 @@ class WeatherParse {
                 // 判断当前事件是否为标签元素开始事件
                 case XmlPullParser.START_TAG:
                     if (nodeName.equals("updatetime")) { // 判断开始标签元素是否是book
-                        weatherBo.setUpdateTime(xpp.nextText());
+                        eventType = xpp.next();
+                        weatherBo.setUpdateTime(xpp.getText());
                     } else if (nodeName.equals("wendu")) {
+                        eventType = xpp.next();
                         // 得到name标签的属性值，并设置beauty的name
-                        weatherBo.setTemperature(xpp.nextText());
+                        weatherBo.setTemperature(xpp.getText());
                     } else if(nodeName.equals("shidu")){
-                        weatherBo.setHumidity(xpp.nextText());
+                        eventType = xpp.next();
+                        weatherBo.setHumidity(xpp.getText());
                     } else if(nodeName.equals("environment")){
                         environmentBo = new EnvironmentBo();
                     } else if(nodeName.equals("quality")) {
-                        environmentBo.setQuality(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setQuality(xpp.getText());
                     } else if(nodeName.equals("aqi")){
-                        environmentBo.setAqi(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setAqi(xpp.getText());
                     } else if(nodeName.equals("pm25")){
-                        environmentBo.setPm25(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setPm25(xpp.getText());
                     } else if(nodeName.equals("suggest")){
-                        environmentBo.setSuggest(xpp.nextText());
-
                         if(alarmBo != null){
-                            alarmBo.setSuggest(xpp.nextText());
+                            eventType = xpp.next();
+                            alarmBo.setSuggest(xpp.getText());
+                        } else {
+                            eventType = xpp.next();
+                            environmentBo.setSuggest(xpp.getText());
                         }
                     } else if(nodeName.equals("o3")){
-                        environmentBo.setO3(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setO3(xpp.getText());
                     } else if(nodeName.equals("co")){
-                        environmentBo.setCo(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setCo(xpp.getText());
                     } else if(nodeName.equals("pm10")){
-                        environmentBo.setPm10(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setPm10(xpp.getText());
                     } else if(nodeName.equals("so2")){
-                        environmentBo.setSo2(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setSo2(xpp.getText());
                     } else if(nodeName.equals("no2")){
-                        environmentBo.setNo2(xpp.nextText());
+                        eventType = xpp.next();
+                        environmentBo.setNo2(xpp.getText());
                     } else if(nodeName.equals("time")){
-                        environmentBo.setTime(xpp.nextText());
 
+                        eventType = xpp.next();
                         if(alarmBo != null){
-                            alarmBo.setTime(xpp.nextText());
+                            alarmBo.setTime(xpp.getText());
+                        } else {
+                            environmentBo.setTime(xpp.getText());
                         }
                     }
 
                     else if(nodeName.equals("alarm")){
                         alarmBo = new AlarmBo();
                     } else if(nodeName.equals("cityKey")){
-                        alarmBo.setCityKey(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setCityKey(xpp.getText());
                     } else if(nodeName.equals("cityName")){
-                        alarmBo.setCityName(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setCityName(xpp.getText());
                     } else if(nodeName.equals("alarmType")){
-                        alarmBo.setAlarmType(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setAlarmType(xpp.getText());
                     } else if(nodeName.equals("alarmText")){
-                        alarmBo.setAlarmText(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setAlarmText(xpp.getText());
                     } else if(nodeName.equals("alarmDegree")){
-                        alarmBo.setAlarmDegree(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setAlarmDegree(xpp.getText());
                     } else if(nodeName.equals("alarm_details")){
-                        alarmBo.setAlarm_details(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setAlarm_details(xpp.getText());
                     } else if(nodeName.equals("standard")){
-                        alarmBo.setStandard(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setStandard(xpp.getText());
                     } else if(nodeName.equals("imgUrl")){
-                        alarmBo.setImgUrl(xpp.nextText());
+                        eventType = xpp.next();
+                        alarmBo.setImgUrl(xpp.getText());
                     }
 
 
@@ -117,42 +140,48 @@ class WeatherParse {
                     else if(nodeName.equals("weather")){
                         dayWeather = new DayWeather();
                     } else if(nodeName.equals("date")){
-                        dayWeather.setDate(xpp.nextText());
+                        eventType = xpp.next();
+                        dayWeather.setDate(xpp.getText());
                     } else if(nodeName.equals("high")){
-                        dayWeather.setHighTemperature(xpp.nextText());
+                        eventType = xpp.next();
+                        dayWeather.setHighTemperature(xpp.getText());
                     } else if(nodeName.equals("low")){
-                        dayWeather.setLowTemperature(xpp.nextText());
+                        eventType = xpp.next();
+                        dayWeather.setLowTemperature(xpp.getText());
                     }
                     else if(nodeName.equals("day")){
                         isDay = true;
                     } else if(nodeName.equals("night")){
                         isDay = false;
                     } else if(nodeName.equals("type")){
+                        eventType = xpp.next();
                         if(isDay){
-                            dayWeather.setDayType(xpp.nextText());
+                            dayWeather.setDayType(xpp.getText());
                         } else {
-                            dayWeather.setNightType(xpp.nextText());
+                            dayWeather.setNightType(xpp.getText());
                         }
                     } else if(nodeName.equals("fengxiang")){
+                        eventType = xpp.next();
                         if(dayWeather != null){
                             if(isDay){
-                                dayWeather.setDayWindDirection(xpp.nextText());
+                                dayWeather.setDayWindDirection(xpp.getText());
                             } else {
-                                dayWeather.setNightWindDirection(xpp.nextText());
+                                dayWeather.setNightWindDirection(xpp.getText());
                             }
                         } else {
-                            weatherBo.setWindDirection(xpp.nextText());
+                            weatherBo.setWindDirection(xpp.getText());
                         }
 
                     } else if(nodeName.equals("fengli")){
+                        eventType = xpp.next();
                         if(dayWeather != null){
                             if(isDay){
-                                dayWeather.setDayWindPower(xpp.nextText());
+                                dayWeather.setDayWindPower(xpp.getText());
                             } else {
-                                dayWeather.setNightWindPower(xpp.nextText());
+                                dayWeather.setNightWindPower(xpp.getText());
                             }
                         } else {
-                            weatherBo.setWindPower(xpp.nextText());
+                            weatherBo.setWindPower(xpp.getText());
                         }
                     }
 
@@ -161,12 +190,16 @@ class WeatherParse {
                     } else if(nodeName.equals("zhishu")){
                         indexBo = new IndexBo();
                     } else if(nodeName.equals("name")){
-                        indexBo.setName(xpp.nextText());
+                        eventType = xpp.next();
+                        indexBo.setName(xpp.getText());
                     } else if(nodeName.equals("value")){
-                        indexBo.setValue(xpp.nextText());
+                        eventType = xpp.next();
+                        indexBo.setValue(xpp.getText());
                     } else if(nodeName.equals("detail")){
-                        indexBo.setDetail(xpp.nextText());
+                        eventType = xpp.next();
+                        indexBo.setDetail(xpp.getText());
                     }
+                    //eventType = xpp.nextTag();
                     break;
                 // 判断当前事件是否为标签元素结束事件
                 case XmlPullParser.END_TAG:
@@ -184,10 +217,11 @@ class WeatherParse {
                     } else if(nodeName.equals("zhishus")){
                         weatherBo.setIndexs(indexs);
                     }
+                    // 进入下一个元素并触发相应事件
                     break;
             }
-            // 进入下一个元素并触发相应事件
             eventType = xpp.next();
+
         }
         return weatherBo;
     }
